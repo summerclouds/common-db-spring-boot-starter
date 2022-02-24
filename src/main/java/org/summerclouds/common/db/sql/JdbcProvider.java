@@ -62,7 +62,7 @@ public class JdbcProvider extends DbProvider {
         String pass = config.getExtracted("pass");
 
         if (!MString.isEmpty(driver)) {
-            if (activator != null) activator.findClass(driver);
+            if (activator != null) activator.loadClass(driver);
             else Class.forName(driver);
         }
 

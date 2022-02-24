@@ -15,11 +15,11 @@
  */
 package org.summerclouds.common.db.sql;
 
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.node.MNode;
 import org.summerclouds.common.core.tool.MSpring;
-import org.summerclouds.common.core.util.Activator;
 
 /**
  * Provide the database connections and other db specific stuff. The default implementation is the

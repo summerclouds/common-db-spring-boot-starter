@@ -18,9 +18,9 @@ package org.summerclouds.common.db.sql;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.tool.MSystem;
-import org.summerclouds.common.core.util.Activator;
 
 /**
  * The pool handles a bundle of connections. The connections should have the same credentials (url,

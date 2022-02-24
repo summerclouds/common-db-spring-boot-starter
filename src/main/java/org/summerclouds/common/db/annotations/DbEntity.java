@@ -28,11 +28,14 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface DbTable {
+public @interface DbEntity {
 
     String tableName() default "";
 
     String[] features() default {};
 
     String attributes() default "";
+    
+    String service() default "default";
+    
 }

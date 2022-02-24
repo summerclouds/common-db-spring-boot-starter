@@ -32,11 +32,11 @@ import org.summerclouds.common.core.tool.MSystem;
 import org.summerclouds.common.db.annotations.DbIndex;
 import org.summerclouds.common.db.annotations.DbPersistent;
 import org.summerclouds.common.db.annotations.DbPrimaryKey;
-import org.summerclouds.common.db.annotations.DbTable;
+import org.summerclouds.common.db.annotations.DbEntity;
 import org.summerclouds.common.db.sql.DbConnection;
 import org.summerclouds.common.db.util.AdbUtil;
 
-@DbTable(features = DbAccessManager.FEATURE_NAME)
+@DbEntity(features = DbAccessManager.FEATURE_NAME)
 public abstract class DbMetadata extends DbComfortableObject
         implements UuidIdentificable, Externalizable {
 

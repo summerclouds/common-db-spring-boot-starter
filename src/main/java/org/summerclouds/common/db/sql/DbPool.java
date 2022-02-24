@@ -20,24 +20,17 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.cfg.CfgBoolean;
 import org.summerclouds.common.core.cfg.CfgTimeInterval;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.node.MNode;
+import org.summerclouds.common.core.tool.MPeriod;
 import org.summerclouds.common.core.tool.MSpring;
 import org.summerclouds.common.core.tool.MSystem;
-import org.summerclouds.common.core.util.Activator;
 import org.summerclouds.common.db.annotations.DbTransactionable;
-
-import de.mhus.lib.annotations.jmx.JmxManaged;
-import de.mhus.lib.core.MActivator;
-import de.mhus.lib.core.MApi;
-import de.mhus.lib.core.MHousekeeper;
-import de.mhus.lib.core.MHousekeeperTask;
-import de.mhus.lib.core.service.UniqueId;
 
 /**
  * The pool handles a bundle of connections. The connections should have the same credentials (url,
@@ -62,6 +55,7 @@ public abstract class DbPool extends MLog implements DbTransactionable {
     private DbProvider provider;
     private String name;
     private INode config;
+	private long lastHouseKeeping = System.currentTimeMillis();
 
     /**
      * Create a new pool from central configuration. It's used the MApi configuration with the key
@@ -96,7 +90,6 @@ public abstract class DbPool extends MLog implements DbTransactionable {
 
         this.provider = provider;
 
-        init();
     }
 
     /**
@@ -108,30 +101,17 @@ public abstract class DbPool extends MLog implements DbTransactionable {
         doCreateConfig();
         setProvider(provider);
 
-        init();
     }
 
-    protected synchronized void init() {
-        if (housekeeperTask != null) return;
-
-        housekeeperTask =
-                new MHousekeeperTask(name) {
-
-                    @Override
-                    public void doit() throws Exception {
-                        if (!isClosed() && autoCleanup.value()) {
-                            log().t(DbPool.this.getName(), "autoCleanup connections");
-                            cleanup(autoCleanupUnused.value());
-                        }
-                        if (isClosed()) cancel();
-                    }
-                };
-        MHousekeeper housekeeper = M.l(MHousekeeper.class);
-        if (housekeeper != null) {
-            housekeeper.register(housekeeperTask, getConfig().getLong("autoCleanupSleep", 300000));
-        } else {
-            log().w("Housekeeper not found - autoCleanup disabled");
+    protected synchronized void doHousekeeping() {
+    	if (! MPeriod.isTimeOut(lastHouseKeeping, 300000)) return;
+    	lastHouseKeeping  = System.currentTimeMillis();
+    	
+        if (!isClosed() && autoCleanup.value()) {
+            log().t(DbPool.this.getName(), "autoCleanup connections");
+            cleanup(autoCleanupUnused.value());
         }
+
     }
 
     protected INode getConfig() {
@@ -144,7 +124,7 @@ public abstract class DbPool extends MLog implements DbTransactionable {
 
     protected void doCreateConfig() {
         try {
-            config = MApi.get().getCfgManager().getCfg(this, null);
+            config = MSpring.getValueNode(MSystem.getOwnerName(this), null);
         } catch (Throwable t) {
         }
         if (config == null) config = new MNode();
@@ -212,11 +192,11 @@ public abstract class DbPool extends MLog implements DbTransactionable {
     @Override
     protected void finalize() throws Throwable {
         close();
-        housekeeperTask = null;
         super.finalize();
     }
 
     public DbPrepared getStatement(String name) throws MException {
+    	doHousekeeping();
         String[] query = provider.getQuery(name);
         return new DbPrepared(this, query[1], query[0]);
     }
@@ -229,6 +209,7 @@ public abstract class DbPool extends MLog implements DbTransactionable {
      * @throws MException
      */
     public DbPrepared createStatement(String sql) throws MException {
+    	doHousekeeping();
         return createStatement(sql, null);
     }
 
@@ -241,10 +222,12 @@ public abstract class DbPool extends MLog implements DbTransactionable {
      * @throws MException
      */
     public DbPrepared createStatement(String sql, String language) throws MException {
+    	doHousekeeping();
         return new DbPrepared(this, sql, language);
     }
 
     public String getPoolId() {
+    	doHousekeeping();
         return name;
     }
 

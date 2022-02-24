@@ -41,7 +41,7 @@ import org.summerclouds.common.db.DbSchema;
 import org.summerclouds.common.db.annotations.DbIndex;
 import org.summerclouds.common.db.annotations.DbPersistent;
 import org.summerclouds.common.db.annotations.DbPrimaryKey;
-import org.summerclouds.common.db.annotations.DbTable;
+import org.summerclouds.common.db.annotations.DbEntity;
 import org.summerclouds.common.db.annotations.DbType;
 import org.summerclouds.common.db.annotations.DbIndex.TYPE;
 import org.summerclouds.common.db.sql.DbConnection;
@@ -103,7 +103,7 @@ public abstract class Table extends MLog {
      */
     public void initDatabase(DbConnection con, boolean cleanup) throws Exception {
 
-        DbTable table = MSystem.findAnnotation(clazz, DbTable.class);
+        DbEntity table = MSystem.findAnnotation(clazz, DbEntity.class);
         if (tableName != null) {
             name = tableName;
         } else if (table == null || MString.isEmptyTrim(table.tableName())) {

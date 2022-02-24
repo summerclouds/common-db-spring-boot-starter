@@ -19,16 +19,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.tool.MSpring;
-import org.summerclouds.common.core.util.Activator;
-
-import de.mhus.lib.core.MActivator;
-import de.mhus.lib.core.MApi;
+import org.summerclouds.common.core.tool.MSystem;
 
 /**
  * The class holds a bundle of different database pools.
@@ -57,7 +54,7 @@ public class DbPoolBundle extends MLog {
      */
     public DbPoolBundle(INode config, Activator activator) {
 
-        if (config == null) config = MApi.get().getCfgManager().getCfg(DbPoolBundle.class, null);
+        if (config == null) config = MSpring.getValueNode(MSystem.getOwnerName(DbPoolBundle.class), null);
         if (activator == null) activator = MSpring.getDefaultActivator();
 
         this.config = config;

@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.cfg.CfgBoolean;
 import org.summerclouds.common.core.concurrent.Lock;
 import org.summerclouds.common.core.concurrent.ThreadLock;
@@ -33,9 +34,9 @@ import org.summerclouds.common.core.tool.MDate;
 import org.summerclouds.common.core.tool.MString;
 import org.summerclouds.common.core.tool.MTracing;
 import org.summerclouds.common.core.tracing.IScope;
-import org.summerclouds.common.core.util.Activator;
 import org.summerclouds.common.core.util.FallbackMap;
 import org.summerclouds.common.db.model.Field;
+import org.summerclouds.common.db.model.MutableDbSchema;
 import org.summerclouds.common.db.model.Table;
 import org.summerclouds.common.db.query.AQuery;
 import org.summerclouds.common.db.sql.DbConnection;
@@ -1568,4 +1569,10 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         ret.init(this);
         return ret;
     }
+
+	@Override
+	public void initialize(List<Class<?>> value) {
+		((MutableDbSchema)schema).getRegistry().clear();
+		((MutableDbSchema)schema).getRegistry().addAll(value);
+	}
 }

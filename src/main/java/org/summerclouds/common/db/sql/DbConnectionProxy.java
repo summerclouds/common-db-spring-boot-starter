@@ -15,7 +15,6 @@
  */
 package org.summerclouds.common.db.sql;
 
-import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.cfg.CfgBoolean;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.log.MLog;

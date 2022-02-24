@@ -19,8 +19,8 @@ import java.sql.Connection;
 
 import javax.sql.DataSource;
 
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.node.INode;
-import org.summerclouds.common.core.util.Activator;
 
 /**
  * DataSourceProvider class.

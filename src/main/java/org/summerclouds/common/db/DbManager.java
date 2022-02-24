@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.MRuntimeException;
 import org.summerclouds.common.core.error.NotFoundException;
@@ -27,7 +28,6 @@ import org.summerclouds.common.core.error.RC;
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.pojo.PojoModelFactory;
 import org.summerclouds.common.core.tool.MSystem;
-import org.summerclouds.common.core.util.Activator;
 import org.summerclouds.common.db.model.Field;
 import org.summerclouds.common.db.model.Table;
 import org.summerclouds.common.db.query.AQuery;

@@ -22,6 +22,7 @@ import org.summerclouds.common.core.error.NotFoundException;
 import org.summerclouds.common.core.lang.Adaptable;
 import org.summerclouds.common.core.pojo.PojoModelFactory;
 import org.summerclouds.common.db.DbCollection;
+import org.summerclouds.common.db.Persistable;
 import org.summerclouds.common.db.QueryParser;
 import org.summerclouds.common.db.query.AQuery;
 
@@ -79,4 +80,6 @@ public interface XdbService extends Adaptable {
     void save(Object object) throws MException;
 
     QueryParser createParser();
+
+	void initialize(List<Class<?>> value);
 }

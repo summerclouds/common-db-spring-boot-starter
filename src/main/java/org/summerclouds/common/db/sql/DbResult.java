@@ -23,7 +23,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.summerclouds.common.core.lang.ICloseable;
-import org.summerclouds.common.core.tool.MDate;
 
 /**
  * Abstract DbResult class.
