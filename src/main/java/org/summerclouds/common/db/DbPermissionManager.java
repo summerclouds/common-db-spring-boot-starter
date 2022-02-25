@@ -25,7 +25,7 @@ import org.summerclouds.common.db.sql.DbConnection;
  *
  * @author mikehummel
  */
-public abstract class DbAccessManager {
+public interface DbPermissionManager {
 
     public static final String FEATURE_NAME = "accesscontrol";
 
@@ -44,9 +44,9 @@ public abstract class DbAccessManager {
      * @param con
      * @param object
      * @param right
-     * @throws AccessDeniedException
+     * @throws AccessDeniedException - alternative to return false
      */
-    public abstract void hasAccess(
+    boolean hasPermission(
             DbManager manager, Table c, DbConnection con, Object object, ACCESS right)
-            throws AccessDeniedException;
+            		throws AccessDeniedException;
 }

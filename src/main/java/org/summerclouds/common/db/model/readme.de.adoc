@@ -1,0 +1,10 @@
+
+
+AbstractDbSchema:
+
+* Access control
+* Special access control
+
+
+org_summerclouds_common_db_DbSchema.maxLockAge = 5min
+

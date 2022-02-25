@@ -15,7 +15,9 @@
  */
 package org.summerclouds.common.db.model;
 
-import org.summerclouds.common.db.DbAccessManager;
+import org.summerclouds.common.core.error.AccessDeniedException;
+import org.summerclouds.common.core.tool.MSecurity;
+import org.summerclouds.common.db.DbPermissionManager;
 import org.summerclouds.common.db.sql.DbConnection;
 
 /**
@@ -26,7 +28,7 @@ import org.summerclouds.common.db.sql.DbConnection;
  */
 public class FeatureAccessManager extends Feature {
 
-    public DbAccessManager accessManager;
+    public DbPermissionManager accessManager;
 
     /** {@inheritDoc} */
     @Override
@@ -37,35 +39,35 @@ public class FeatureAccessManager extends Feature {
     /** {@inheritDoc} */
     @Override
     public void postFillObject(Object obj, DbConnection con) throws Exception {
-        if (accessManager != null)
-            accessManager.hasAccess(manager, table, con, obj, DbAccessManager.ACCESS.READ);
+        if (accessManager != null && !accessManager.hasPermission(manager, table, con, obj, DbPermissionManager.ACCESS.READ))
+        	throw new AccessDeniedException("read/fill denied",MSecurity.getCurrent(), table.getName(), obj.getClass().getCanonicalName());
     }
 
     /** {@inheritDoc} */
     @Override
     public void preCreateObject(DbConnection con, Object object) throws Exception {
-        if (accessManager != null)
-            accessManager.hasAccess(manager, table, con, object, DbAccessManager.ACCESS.CREATE);
+        if (accessManager != null && !accessManager.hasPermission(manager, table, con, object, DbPermissionManager.ACCESS.CREATE))
+        	throw new AccessDeniedException("create denied",MSecurity.getCurrent(), table.getName(), object.getClass().getCanonicalName());
     }
 
     /** {@inheritDoc} */
     @Override
     public void preSaveObject(DbConnection con, Object object) throws Exception {
-        if (accessManager != null)
-            accessManager.hasAccess(manager, table, con, object, DbAccessManager.ACCESS.UPDATE);
+        if (accessManager != null && !accessManager.hasPermission(manager, table, con, object, DbPermissionManager.ACCESS.UPDATE))
+        	throw new AccessDeniedException("update/save denied",MSecurity.getCurrent(), table.getName(), object.getClass().getCanonicalName());
     }
 
     /** {@inheritDoc} */
     @Override
     public void deleteObject(DbConnection con, Object object) throws Exception {
-        if (accessManager != null)
-            accessManager.hasAccess(manager, table, con, object, DbAccessManager.ACCESS.DELETE);
+        if (accessManager != null && !accessManager.hasPermission(manager, table, con, object, DbPermissionManager.ACCESS.DELETE))
+        	throw new AccessDeniedException("delete denied",MSecurity.getCurrent(), table.getName(), object.getClass().getCanonicalName());
     }
 
     /** {@inheritDoc} */
     @Override
     public void postGetObject(DbConnection con, Object obj) throws Exception {
-        if (accessManager != null)
-            accessManager.hasAccess(manager, table, con, obj, DbAccessManager.ACCESS.READ);
+        if (accessManager != null && !accessManager.hasPermission(manager, table, con, obj, DbPermissionManager.ACCESS.READ))
+            	throw new AccessDeniedException("read denied",MSecurity.getCurrent(), table.getName(), obj.getClass().getCanonicalName());
     }
 }

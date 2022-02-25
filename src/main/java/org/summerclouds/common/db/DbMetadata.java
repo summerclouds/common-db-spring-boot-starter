@@ -36,7 +36,7 @@ import org.summerclouds.common.db.annotations.DbEntity;
 import org.summerclouds.common.db.sql.DbConnection;
 import org.summerclouds.common.db.util.AdbUtil;
 
-@DbEntity(features = DbAccessManager.FEATURE_NAME)
+@DbEntity(features = DbPermissionManager.FEATURE_NAME)
 public abstract class DbMetadata extends DbComfortableObject
         implements UuidIdentificable, Externalizable {
 

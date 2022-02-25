@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.summerclouds.common.core.error.AccessDeniedException;
 import org.summerclouds.common.core.error.MException;
-import org.summerclouds.common.db.DbAccessManager;
+import org.summerclouds.common.db.DbPermissionManager;
 import org.summerclouds.common.db.DbManager;
 import org.summerclouds.common.db.DbManagerJdbc;
 import org.summerclouds.common.db.DbSchema;
@@ -47,34 +47,36 @@ public class BookStoreSchema extends DbSchema {
     }
 
     @Override
-    public DbAccessManager getAccessManager(Table c) {
+    public DbPermissionManager getAccessManager(Table c) {
         if (c.getClazz() == Finances.class) {
-            return new DbAccessManager() {
+            return new DbPermissionManager() {
 
                 @Override
-                public void hasAccess(
+                public boolean hasPermission(
                         DbManager manager,
                         Table c,
                         DbConnection con,
                         Object object,
-                        DbAccessManager.ACCESS right)
+                        DbPermissionManager.ACCESS right)
                         throws AccessDeniedException {
 
                     Finances f = (Finances) object;
 
                     String conf = f.getConfidential();
                     if (conf != null) {
-                        if (right == DbAccessManager.ACCESS.UPDATE && conf.indexOf("write") >= 0)
+                        if (right == DbPermissionManager.ACCESS.UPDATE && conf.indexOf("write") >= 0)
                             throw new AccessDeniedException("access denied");
 
-                        if (right == DbAccessManager.ACCESS.DELETE && conf.indexOf("remove") >= 0)
+                        if (right == DbPermissionManager.ACCESS.DELETE && conf.indexOf("remove") >= 0)
                             throw new AccessDeniedException("access denied");
 
-                        if (right == DbAccessManager.ACCESS.READ && conf.indexOf("read") >= 0)
+                        if (right == DbPermissionManager.ACCESS.READ && conf.indexOf("read") >= 0)
                             throw new AccessDeniedException("access denied");
                     }
                     // set new acl if needed
                     if (f.getNewConfidential() != null) f.setConfidential(f.getNewConfidential());
+                    
+                    return true;
                 }
             };
         }

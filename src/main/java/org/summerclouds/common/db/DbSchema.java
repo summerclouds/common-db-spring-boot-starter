@@ -322,7 +322,7 @@ public abstract class DbSchema extends MLog implements PojoModelFactory {
      * @param c
      * @return x The manager or null
      */
-    public DbAccessManager getAccessManager(Table c) {
+    public DbPermissionManager getAccessManager(Table c) {
         return null;
     }
 

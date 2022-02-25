@@ -18,9 +18,7 @@ import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.tool.MSpring;
 import org.summerclouds.common.core.tool.MSystem;
 import org.summerclouds.common.db.DbManagerJdbc;
-import org.summerclouds.common.db.DbSchema;
 import org.summerclouds.common.db.annotations.DbEntity;
-import org.summerclouds.common.db.model.MutableDbSchema;
 import org.summerclouds.common.db.sql.DbPool;
 import org.summerclouds.common.db.sql.DbPoolBundle;
 
@@ -65,7 +63,7 @@ public class XdbManager extends MLog {
 			try {
 				XdbService service = findService(entry.getKey());
 				if (service == null) {
-					log().e("Service nut found {1}",entry.getKey());
+					log().e("Service not found {1}",entry.getKey());
 					continue;
 				}
 				log().d("initialize service {1}",entry.getKey());
@@ -73,7 +71,7 @@ public class XdbManager extends MLog {
 				service.initialize(entry.getValue());
 				service.updateSchema(false); // false ?
 			} catch (Throwable t) {
-				log().e("can't setup service {1}",entry.getKey());
+				log().e("can't setup service {1}",entry.getKey(), t);
 			}
 		}
 		
@@ -91,14 +89,22 @@ public class XdbManager extends MLog {
 			
 			INode config = MSpring.getValueNode("xdb." + name + ".pool", null);
 			if (config == null) {
-				log().e("contif not found for xdb service xdb.{1}.pool",name);
+				log().e("config not found for xdb service xdb.{1}.pool - FAILED",name);
 				return null;
 			}
 	        DbPoolBundle poolBundle = new DbPoolBundle(config, activator);
 
 			INode schemaConfig = MSpring.getValueNode("xdb." + name + ".schema", null);
-	        DbSchema schema = new MutableDbSchema(schemaConfig);
-	        
+			XdbDbSchema schema = null;
+	        Map<String, XdbDbSchema> beans = MSpring.getBeansOfType(XdbDbSchema.class);
+	        schema = beans.get(name);
+	        if (schema != null) {
+	        	log().i("bean xdb schema {1}", name);
+	        	schema.setConfig(schemaConfig);
+	        } else {
+	        	log().i("default xdb schema {1}", name);
+	        	schema = new XdbDbSchema(schemaConfig);
+	        }
 	        DbPool rwPool = poolBundle.getPool("rw");
 	        DbPool roPool = rwPool;
 	        try {
@@ -107,7 +113,7 @@ public class XdbManager extends MLog {
 	        	log().d("can't load separate ro pool for {1}",name,e.toString());
 	        }
 	        
-			service = new DbManagerJdbc("", rwPool, roPool, schema);
+			service = new DbManagerJdbc(name, rwPool, roPool, schema);
 		} else
 			log().d("load xdb service as bean {1}",name);
 		return service;
