@@ -8,15 +8,11 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.tool.MSpring;
-import org.summerclouds.common.core.tool.MSystem;
 import org.summerclouds.common.db.DbManagerJdbc;
 import org.summerclouds.common.db.annotations.DbEntity;
 import org.summerclouds.common.db.sql.DbPool;
@@ -39,7 +35,7 @@ public class XdbManager extends MLog {
 	@PostConstruct
 	protected void setup() {
 		
-		findAnnotatedClasses(packages);
+		entities = MSpring.findAnnotatedClasses(packages, DbEntity.class);
 		
 		Map<String, List<Class<?>>> mapping = new HashMap<>();
 		
@@ -118,30 +114,7 @@ public class XdbManager extends MLog {
 			log().d("load xdb service as bean {1}",name);
 		return service;
 	}
-	
-	
-	
-	private void findAnnotatedClasses(String scanPackage) {
-		entities = new ArrayList<>();
-        ClassPathScanningCandidateComponentProvider provider = createComponentScanner();
-        for (BeanDefinition beanDef : provider.findCandidateComponents(scanPackage)) {
-        	try {
-	        	Class<?> cl = MSystem.getClass(beanDef.getBeanClassName());
-	        	entities.add(cl);
-        	} catch (Throwable t) {
-        		log().e("can't load xdb entity {1}",beanDef.getBeanClassName());
-        	}
-        }
-    }
- 
-    private ClassPathScanningCandidateComponentProvider createComponentScanner() {
-        // Don't pull default filters (@Component, etc.):
-        ClassPathScanningCandidateComponentProvider provider
-                = new ClassPathScanningCandidateComponentProvider(false);
-        provider.addIncludeFilter(new AnnotationTypeFilter(DbEntity.class));
-        return provider;
-    }
-    
+	    
     public Class<?>[] getEntities() {
     	return entities.toArray(new Class<?>[0]);
     }

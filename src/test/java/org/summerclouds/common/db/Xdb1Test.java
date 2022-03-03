@@ -23,7 +23,7 @@ import org.summerclouds.common.db.xdb1.Person;
 import org.summerclounds.common.junit.TestCase;
 
 @SpringBootTest(classes = {
-		Xdb1Configuration.class,
+//		Xdb1Configuration.class,
 		SpringSummerCloudsCoreAutoConfiguration.class,
 		SpringSummerCloudsDbAutoConfiguration.class},
 		properties =  {
@@ -32,6 +32,7 @@ import org.summerclounds.common.junit.TestCase;
 				"xdb.default.pool.rw.url=jdbc:hsqldb:mem:xdb1",
 				"xdb.default.pool.rw.user=sa",
 				"xdb.default.pool.rw.password=",
+				"org.summerclouds.db.xdb.enable=true",
 				
 //				"xdb.default.schema.dings=a",
 				
