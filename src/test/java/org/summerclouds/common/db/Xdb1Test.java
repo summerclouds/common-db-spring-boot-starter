@@ -27,7 +27,7 @@ import org.summerclounds.common.junit.TestCase;
 		SpringSummerCloudsCoreAutoConfiguration.class,
 		SpringSummerCloudsDbAutoConfiguration.class},
 		properties =  {
-				"xdbmanager.scan.packages=org.summerclouds.common.db.xdb1",
+				"org.summerclouds.scan.packages=org.summerclouds.common.db.xdb1",
 				"xdb.default.pool.rw.driver=org.hsqldb.jdbcDriver",
 				"xdb.default.pool.rw.url=jdbc:hsqldb:mem:xdb1",
 				"xdb.default.pool.rw.user=sa",

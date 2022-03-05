@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.log.MLog;
@@ -29,13 +28,10 @@ public class XdbManager extends MLog {
 	
 	private List<Class<?>> entities;
 	
-	@Value("${xdbmanager.scan.packages}")
-	private String packages;
-
 	@PostConstruct
 	protected void setup() {
 		
-		entities = MSpring.findAnnotatedClasses(packages, DbEntity.class);
+		entities = MSpring.findAnnotatedClasses(DbEntity.class);
 		
 		Map<String, List<Class<?>>> mapping = new HashMap<>();
 		
