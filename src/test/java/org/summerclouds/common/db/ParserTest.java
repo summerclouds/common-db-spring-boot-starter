@@ -25,7 +25,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.summerclouds.common.db.model.Person;
 import org.summerclouds.common.db.util.ParserJdbcDebug;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class ParserTest extends TestCase {
 

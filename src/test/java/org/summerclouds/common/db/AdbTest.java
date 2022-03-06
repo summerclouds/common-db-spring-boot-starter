@@ -49,7 +49,7 @@ import org.summerclouds.common.db.query.Db;
 import org.summerclouds.common.db.sql.DbConnection;
 import org.summerclouds.common.db.sql.DbPool;
 import org.summerclouds.common.db.sql.DbPoolBundle;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 public class AdbTest extends TestCase {
 

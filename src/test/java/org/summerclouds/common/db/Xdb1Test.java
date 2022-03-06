@@ -20,7 +20,7 @@ import org.summerclouds.common.db.xdb.XdbService;
 import org.summerclouds.common.db.xdb.XdbType;
 import org.summerclouds.common.db.xdb1.Book;
 import org.summerclouds.common.db.xdb1.Person;
-import org.summerclounds.common.junit.TestCase;
+import org.summerclouds.common.junit.TestCase;
 
 @SpringBootTest(classes = {
 //		Xdb1Configuration.class,
