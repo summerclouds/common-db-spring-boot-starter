@@ -32,7 +32,7 @@ import org.summerclouds.common.junit.TestCase;
 				"xdb.default.pool.rw.url=jdbc:hsqldb:mem:xdb1",
 				"xdb.default.pool.rw.user=sa",
 				"xdb.default.pool.rw.password=",
-				"org.summerclouds.db.xdb.enable=true",
+				"org.summerclouds.db.xdb.enabled=true",
 				
 //				"xdb.default.schema.dings=a",
 				

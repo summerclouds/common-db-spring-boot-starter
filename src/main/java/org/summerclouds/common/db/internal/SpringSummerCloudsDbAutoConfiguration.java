@@ -12,7 +12,7 @@ public class SpringSummerCloudsDbAutoConfiguration {
 	}
 	
 	@Bean
-	@ConditionalOnProperty(name="org.summerclouds.db.xdb.enable",havingValue = "true")
+	@ConditionalOnProperty(name="org.summerclouds.db.xdb.enabled",havingValue = "true")
 	XdbManager xdbManager() {
 		return new XdbManager();
 	}
