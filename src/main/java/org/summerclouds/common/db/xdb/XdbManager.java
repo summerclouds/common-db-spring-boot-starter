@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.summerclouds.common.core.activator.Activator;
+import org.summerclouds.common.core.cfg.BeanRefMap;
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.node.INode;
@@ -25,6 +26,7 @@ import org.summerclouds.common.db.sql.DbPoolBundle;
 public class XdbManager extends MLog {
 
 	private Map<String, XdbService> services = new HashMap<>();
+	private BeanRefMap<XdbService> xdbServices = new BeanRefMap<>(XdbService.class);
 	
 	private List<Class<?>> entities;
 	
@@ -72,7 +74,7 @@ public class XdbManager extends MLog {
 
 
 	protected XdbService findService(String name) throws Exception {
-		Map<String, XdbService> map = MSpring.getBeansOfType(XdbService.class);
+		Map<String, XdbService> map = xdbServices.beans();
 		XdbService service = map.get(name);
 		if (service == null) {
 			log().i("init xdb service as JDBC {1}",name);

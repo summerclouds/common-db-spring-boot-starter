@@ -174,14 +174,13 @@ public class AdbUtil {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static PojoModel createDefaultPojoModel(Class<?> clazz) {
         return new PojoParser()
                 .parse(
                         clazz,
                         "_",
                         false,
-                        new Class[] {DbPersistent.class, DbPrimaryKey.class, DbRelation.class})
+                        DbPersistent.class, DbPrimaryKey.class, DbRelation.class)
                 .filter(true, false, true, false, true)
                 .getModel();
     }
