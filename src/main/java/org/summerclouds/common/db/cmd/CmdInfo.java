@@ -62,7 +62,7 @@ public class CmdInfo extends CmdOperation {
                     }
                 });
 
-        ConsoleTable out = new ConsoleTable(tblOpt);
+        ConsoleTable out = createTable();
         out.setHeaderValues("Field Name", "Type", "PrimaryKey", "Persistent", "Mapping");
         for (String name : fieldNames) {
             out.addRowValues(

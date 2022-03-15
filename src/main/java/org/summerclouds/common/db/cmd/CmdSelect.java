@@ -163,7 +163,7 @@ public class CmdSelect extends CmdOperation {
             for (String name : columns) fieldNames.add(name);
         }
 
-        ConsoleTable out = new ConsoleTable(tblOpt);
+        ConsoleTable out = createTable();
         if (csv) {
             out.setColSeparator(";");
             out.setCellSpacer(false);
@@ -259,7 +259,7 @@ public class CmdSelect extends CmdOperation {
             }
         }
 
-        out.print(System.out);
+        out.print();
 
         return null;
     }

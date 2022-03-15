@@ -81,7 +81,7 @@ public class CmdView extends CmdOperation {
             }
             System.out.println(">>> VIEW " + type.getIdAsString(object));
 
-            ConsoleTable out = new ConsoleTable(tblOpt);
+            ConsoleTable out = createTable();
             out.setHeaderValues("Field", "Value", "Type");
 
             List<String> fieldNames = type.getAttributeNames();

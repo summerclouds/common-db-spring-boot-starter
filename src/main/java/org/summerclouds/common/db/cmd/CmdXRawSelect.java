@@ -142,7 +142,7 @@ public class CmdXRawSelect extends CmdOperation {
             for (String name : fieldsComma.split(",")) fieldNames.add(name);
         }
 
-        ConsoleTable out = new ConsoleTable(tblOpt);
+        ConsoleTable out = createTable();
         if (csv) {
             out.setColSeparator(";");
             out.setCellSpacer(false);
@@ -248,7 +248,7 @@ public class CmdXRawSelect extends CmdOperation {
             }
         }
 
-        out.print(System.out);
+        out.print();
 
         return null;
     }

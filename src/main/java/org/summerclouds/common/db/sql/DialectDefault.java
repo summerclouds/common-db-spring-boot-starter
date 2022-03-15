@@ -92,7 +92,7 @@ public class DialectDefault extends Dialect {
             String tPrefix = ctable.getExtracted("prefix", "");
 
             String tnOrg = tPrefix + tName;
-            log().t("table", tnOrg);
+            log().d("process table {1}", tnOrg);
             String tn = normalizeTableName(tnOrg);
 
             ResultSet tRes = findTable(meta, tn);
@@ -425,6 +425,7 @@ public class DialectDefault extends Dialect {
             // String type    = cindex.getExtracted("type");
             boolean btree = cindex.getBoolean("btree", false);
             String columnsOrg = cindex.getExtracted("fields");
+            log().d("process index {1}",iNameOrg);
             String columns = null;
             // order by name, trim, normalize
             if (columnsOrg != null) {
@@ -564,7 +565,7 @@ public class DialectDefault extends Dialect {
             String set = cdata.getExtracted("set");
             String column = cdata.getExtracted("column");
             String condition = cdata.getExtracted("condition");
-
+            log().d("process data");
             boolean foundRow = false;
             boolean foundError = false;
             if (select != null) {

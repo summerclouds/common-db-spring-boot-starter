@@ -31,6 +31,8 @@ import org.summerclouds.common.core.parser.ParsingPart;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MDate;
 import org.summerclouds.common.core.tool.MSql;
+import org.summerclouds.common.core.tool.MTracing;
+import org.summerclouds.common.core.tracing.IScope;
 import org.summerclouds.common.db.annotations.DbType;
 import org.summerclouds.common.db.query.AQueryCreator;
 import org.summerclouds.common.db.sql.commonparser.Common2SqlCompiler;
@@ -116,9 +118,11 @@ public abstract class Dialect extends MLog implements ICompiler, AQueryCreator {
      */
     public void createStructure(
             INode data, DbConnection db, MetadataBundle caoMeta, boolean cleanup) throws Exception {
-        createTables(data, db, caoMeta, cleanup);
-        createIndexes(data, db, caoMeta, cleanup);
-        createData(data, db);
+    	try (IScope scope = MTracing.enter("sql create structure", "cleanup", cleanup )) {
+	        createTables(data, db, caoMeta, cleanup);
+	        createIndexes(data, db, caoMeta, cleanup);
+	        createData(data, db);
+    	}
     }
 
     /**
