@@ -17,7 +17,6 @@ package org.summerclouds.common.db.sql.parser;
 
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Map;
 
 import org.summerclouds.common.core.error.MException;
 import org.summerclouds.common.core.error.MRuntimeException;
@@ -27,6 +26,7 @@ import org.summerclouds.common.core.parser.ParseReader;
 import org.summerclouds.common.core.parser.ParsingPart;
 import org.summerclouds.common.core.parser.StringParsingPart;
 import org.summerclouds.common.core.tool.MString;
+import org.summerclouds.common.core.util.IValuesProvider;
 
 public class MainPart extends StringParsingPart {
 
@@ -43,7 +43,7 @@ public class MainPart extends StringParsingPart {
     }
 
     @Override
-    public void execute(StringBuilder out, Map<String, Object> attributes) {
+    public void execute(StringBuilder out, IValuesProvider attributes) {
         try {
             for (ParsingPart p : parts) {
                 p.execute(out, attributes);

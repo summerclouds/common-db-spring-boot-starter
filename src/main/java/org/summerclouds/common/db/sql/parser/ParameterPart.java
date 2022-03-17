@@ -26,13 +26,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.summerclouds.common.core.M;
+import org.summerclouds.common.core.error.ConflictRuntimeException;
 import org.summerclouds.common.core.parser.ParseException;
 import org.summerclouds.common.core.parser.ParseReader;
 import org.summerclouds.common.core.parser.StringParsingPart;
 import org.summerclouds.common.core.tool.MCast;
 import org.summerclouds.common.core.tool.MString;
 import org.summerclouds.common.core.tool.MSystem;
-import org.summerclouds.common.core.util.FallbackMap;
+import org.summerclouds.common.core.util.FallbackValueProvider;
+import org.summerclouds.common.core.util.IValuesProvider;
+import org.summerclouds.common.core.util.MapValuesProvider;
 import org.summerclouds.common.core.util.Raw;
 import org.summerclouds.common.db.sql.DbStatement;
 
@@ -48,7 +51,7 @@ public class ParameterPart extends StringParsingPart {
     }
 
     @Override
-    public void execute(StringBuilder out, Map<String, Object> attributes) {
+    public void execute(StringBuilder out, IValuesProvider attributes) {
 
         Object value = attributes.get(attribute[0]);
         if (value == null) {
@@ -57,8 +60,8 @@ public class ParameterPart extends StringParsingPart {
         }
         if (value.getClass().isArray()) {
             HashMap<String, Object> valueMap = new HashMap<String, Object>();
-            FallbackMap<String, Object> proxyMap =
-                    new FallbackMap<String, Object>(valueMap, attributes, false);
+            FallbackValueProvider proxyMap =
+                    new FallbackValueProvider(new MapValuesProvider(valueMap), attributes);
             for (int i = 0; i < ((Object[]) value).length; i++) {
                 if (i != 0) out.append(attribute.length > 2 ? attribute[2] : ",");
                 valueMap.put(attribute[0], ((Object[]) value)[i]);
@@ -68,8 +71,8 @@ public class ParameterPart extends StringParsingPart {
         }
         if (value instanceof List) {
             HashMap<String, Object> valueMap = new HashMap<String, Object>();
-            FallbackMap<String, Object> proxyMap =
-                    new FallbackMap<String, Object>(valueMap, attributes, false);
+            FallbackValueProvider proxyMap =
+                    new FallbackValueProvider(new MapValuesProvider(valueMap), attributes);
             boolean first = true;
             for (Object obj : (List<?>) value) {
                 if (!first) out.append(attribute.length > 2 ? attribute[2] : ",");
@@ -80,8 +83,11 @@ public class ParameterPart extends StringParsingPart {
             return;
         }
         if (value instanceof InputStream) {
+        	if (!(attributes instanceof MapValuesProvider))
+        		throw new ConflictRuntimeException("attributes must be a map provider to provide blob streams");
+        	Map<String, Object> map = ((MapValuesProvider)attributes).getMap();
             out.append("?");
-            DbStatement.addBinary(attributes, value);
+            DbStatement.addBinary(map, value);
             return;
         }
         String type = null;
