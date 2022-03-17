@@ -33,7 +33,7 @@ public class XdbManager extends MLog {
 	@PostConstruct
 	protected void setup() {
 		
-		entities = MSpring.findAnnotatedClasses(DbEntity.class);
+		entities = MSpring.findAnnotatedClasses(DbEntity.class, true);
 		
 		Map<String, List<Class<?>>> mapping = new HashMap<>();
 		
