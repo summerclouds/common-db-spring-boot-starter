@@ -18,6 +18,7 @@ package org.summerclouds.common.db.sql;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.tool.MPeriod;
 import org.summerclouds.common.core.tool.MString;
 
@@ -45,7 +46,7 @@ public class JdbcProvider extends DbProvider {
             if (dialect == null) {
                 dialectName = config.getExtracted("driver");
                 if (dialectName != null) {
-                    dialect = Dialect.findDialect(dialectName);
+                    dialect = M.l(DialectFactory.class).findDialect(dialectName);
                 }
             }
             log().i("found dialect", getName(), dialectName, dialect);

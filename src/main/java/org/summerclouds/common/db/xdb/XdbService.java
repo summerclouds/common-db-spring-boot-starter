@@ -81,4 +81,6 @@ public interface XdbService extends Adaptable {
     QueryParser createParser();
 
 	void initialize(List<Class<?>> value);
+
+	void create(Object object) throws MException;
 }

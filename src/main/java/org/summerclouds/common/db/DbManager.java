@@ -482,6 +482,11 @@ public abstract class DbManager extends MLog implements DbObjectHandler, XdbServ
         saveObject(object);
     }
 
+    @Override
+    public void create(Object object) throws MException {
+        createObject(object);
+    }
+    
     public Object[] getPrimaryKeyValues(Object object) throws Exception {
 
         String registryName = getRegistryName(object);

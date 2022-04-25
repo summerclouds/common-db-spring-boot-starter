@@ -19,6 +19,7 @@ import java.sql.Connection;
 
 import javax.sql.DataSource;
 
+import org.summerclouds.common.core.M;
 import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.node.INode;
 
@@ -85,7 +86,7 @@ public class DataSourceProvider extends DbProvider {
             } catch (Throwable t) {
                 log().d(t);
             }
-            dialect = Dialect.findDialect(driverName);
+            dialect = M.l(DialectFactory.class).findDialect(driverName);
             log().i("found dialect", getName(), driverName, dialect);
         }
         return dialect;

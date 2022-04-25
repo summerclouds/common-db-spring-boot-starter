@@ -274,7 +274,7 @@ public abstract class Table extends MLog {
         schema.internalSaveObject(con, name, object, attributes);
 
         int c = sqlUpdate.getStatement(con).executeUpdate(attributes);
-        if (c != 1) throw new MException(RC.ERROR, "update failed, updated objects {1}", c);
+        if (c != 1) throw new MException(RC.ERROR, "update failed, updated objects {1}", c, attributes);
 
         for (Feature f : features) f.postSaveObject(con, object);
 
