@@ -274,7 +274,7 @@ public abstract class Table extends MLog {
         schema.internalSaveObject(con, name, object, attributes);
 
         int c = sqlUpdate.getStatement(con).executeUpdate(attributes);
-        if (c != 1) throw new MException(RC.ERROR, "update failed, updated objects {1}", c, attributes);
+        if (c != 1) throw new MException(RC.ERROR, "update {2} failed, updated objects {1}", c, object);
 
         for (Feature f : features) f.postSaveObject(con, object);
 
@@ -309,7 +309,7 @@ public abstract class Table extends MLog {
         schema.internalSaveObject(con, name, object, attributes);
 
         int c = sqlUpdateForce.getStatement(con).executeUpdate(attributes);
-        if (c != 1) throw new MException(RC.ERROR, "update failed, updated objects {1}", c);
+        if (c != 1) throw new MException(RC.ERROR, "update {2} failed, updated objects {1}", c, object);
 
         if (!raw) for (Feature f : features) f.postSaveObject(con, object);
 
@@ -344,7 +344,7 @@ public abstract class Table extends MLog {
         int nr = 0;
         for (String aname : attributeNames) {
             Field f = fIndex.get(aname);
-            if (f == null) throw new NotFoundException("field not found", name, aname);
+            if (f == null) throw new NotFoundException("field {2} not found in {1}", name, aname);
 
             if (!f.isPrimary && f.isPersistent()) {
                 if (nr > 0) sql.append(",");
@@ -353,7 +353,7 @@ public abstract class Table extends MLog {
                 attributes.put(f.name, f.getFromTarget(object)); // collect values
             }
         }
-        if (nr == 0) throw new NotFoundException("no valid fields found");
+        if (nr == 0) throw new NotFoundException("no valid fields found in {1}", name);
 
         sql.append(" WHERE ");
         nr = 0;
@@ -379,7 +379,7 @@ public abstract class Table extends MLog {
         schema.internalSaveObject(con, name, object, attributes);
 
         int c = query.getStatement(con).executeUpdate(attributes);
-        if (c != 1) throw new MException(RC.STATUS.ERROR, "update failed, updated objects {1}", c);
+        if (c != 1) throw new MException(RC.STATUS.ERROR, "update {2} failed, updated objects {1}", c, object);
 
         if (!raw) for (Feature f : features) f.postSaveObject(con, object);
 
