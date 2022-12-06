@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.cfg.BeanRefMap;
 import org.summerclouds.common.core.error.MException;
+import org.summerclouds.common.core.lang.SummerApplicationLifecycle;
 import org.summerclouds.common.core.log.MLog;
 import org.summerclouds.common.core.node.INode;
 import org.summerclouds.common.core.tool.MSpring;
@@ -23,14 +24,13 @@ import org.summerclouds.common.db.sql.DbPoolBundle;
  * @author mikehummel
  *
  */
-public class XdbManager extends MLog {
+public class XdbManager extends MLog implements SummerApplicationLifecycle {
 
 	private Map<String, XdbService> services = new HashMap<>();
 	private BeanRefMap<XdbService> xdbServices = new BeanRefMap<>(XdbService.class);
 	
 	private List<Class<?>> entities;
-	
-	@PostConstruct
+
 	protected void setup() {
 		
 		entities = MSpring.findAnnotatedClasses(DbEntity.class, true);
@@ -124,5 +124,14 @@ public class XdbManager extends MLog {
     public String[] getServiceNames() {
     	return services.keySet().toArray(new String[0]);
     }
-    
+
+	@Override
+	public void onSummerApplicationStart() throws Exception {
+		setup();
+	}
+
+	@Override
+	public void onSummerApplicationStop() throws Exception {
+
+	}
 }
