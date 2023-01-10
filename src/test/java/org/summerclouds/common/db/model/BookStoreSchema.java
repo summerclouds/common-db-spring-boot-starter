@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,10 +64,12 @@ public class BookStoreSchema extends DbSchema {
 
                     String conf = f.getConfidential();
                     if (conf != null) {
-                        if (right == DbPermissionManager.ACCESS.UPDATE && conf.indexOf("write") >= 0)
+                        if (right == DbPermissionManager.ACCESS.UPDATE
+                                && conf.indexOf("write") >= 0)
                             throw new AccessDeniedException("access denied");
 
-                        if (right == DbPermissionManager.ACCESS.DELETE && conf.indexOf("remove") >= 0)
+                        if (right == DbPermissionManager.ACCESS.DELETE
+                                && conf.indexOf("remove") >= 0)
                             throw new AccessDeniedException("access denied");
 
                         if (right == DbPermissionManager.ACCESS.READ && conf.indexOf("read") >= 0)
@@ -75,7 +77,7 @@ public class BookStoreSchema extends DbSchema {
                     }
                     // set new acl if needed
                     if (f.getNewConfidential() != null) f.setConfidential(f.getNewConfidential());
-                    
+
                     return true;
                 }
             };

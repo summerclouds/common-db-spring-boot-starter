@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,7 +88,8 @@ public abstract class Field extends MLog {
             }
 
             if (index < 0 || index >= values.length)
-                throw new MException(RC.ERROR, "index {1} not found in enum", attribute.getType().getName());
+                throw new MException(
+                        RC.ERROR, "index {1} not found in enum", attribute.getType().getName());
 
             value = values[index];
         }
@@ -111,7 +112,8 @@ public abstract class Field extends MLog {
 
             Object[] values = attribute.getType().getEnumConstants();
             if (index < 0 || index >= values.length)
-                throw new MException(RC.ERROR, "index {1} not found in enum", attribute.getType().getName());
+                throw new MException(
+                        RC.ERROR, "index {1} not found in enum", attribute.getType().getName());
 
             value = values[index];
 

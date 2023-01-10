@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ public class SqlRuntimeWarning extends MLog implements SqlAnalyzer {
         if (delta > traceMaxRuntime) {
             log().f("Query Runtime Warning", connectionId, delta, query);
             for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
-                log().w(""+connectionId, "  " + element);
+                log().w("" + connectionId, "  " + element);
             }
         }
     }
@@ -54,9 +54,9 @@ public class SqlRuntimeWarning extends MLog implements SqlAnalyzer {
         traceMaxRuntime = config.getLong("traceMaxRuntime", traceMaxRuntime);
     }
 
-//    @Override
-//    public void doInitialize(IApiInternal internal, MCfgManager manager, INode config) {
-//        if (config != null) doConfigure(config);
-//        SqlAnalytics.setAnalyzer(this);
-//    }
+    //    @Override
+    //    public void doInitialize(IApiInternal internal, MCfgManager manager, INode config) {
+    //        if (config != null) doConfigure(config);
+    //        SqlAnalytics.setAnalyzer(this);
+    //    }
 }

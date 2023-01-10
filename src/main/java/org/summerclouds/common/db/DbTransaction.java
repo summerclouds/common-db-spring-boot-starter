@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,8 +38,7 @@ public class DbTransaction {
 
     /** Constant <code>DEFAULT_TIMEOUT=MTimeInterval.MINUTE_IN_MILLISECONDS * 10</code> */
     public static final CfgLong CFG_DEFAULT_TIMEOUT =
-            new CfgLong(
-                    DbTransaction.class, "defaultTimeout", MPeriod.MINUTE_IN_MILLISECONDS * 10);
+            new CfgLong(DbTransaction.class, "defaultTimeout", MPeriod.MINUTE_IN_MILLISECONDS * 10);
 
     /**
      * lock accept only nested locks with already locked objects.
@@ -140,7 +139,7 @@ public class DbTransaction {
             TransactionPool.instance().releaseEncapsulate();
         } catch (Throwable t) {
             try {
-            	Log.getLog(DbTransaction.class).e(t);
+                Log.getLog(DbTransaction.class).e(t);
             } catch (Throwable t2) {
                 t.printStackTrace();
                 t2.printStackTrace();
@@ -191,7 +190,7 @@ public class DbTransaction {
             return TransactionPool.instance().commitAndRelease();
         } catch (Throwable t) {
             try {
-            	Log.getLog(DbTransaction.class).e(t);
+                Log.getLog(DbTransaction.class).e(t);
             } catch (Throwable t2) {
                 t.printStackTrace();
                 t2.printStackTrace();
@@ -212,7 +211,7 @@ public class DbTransaction {
             return TransactionPool.instance().rollbackAndRelease();
         } catch (Throwable t) {
             try {
-            	Log.getLog(DbTransaction.class).e(t);
+                Log.getLog(DbTransaction.class).e(t);
             } catch (Throwable t2) {
                 t.printStackTrace();
                 t2.printStackTrace();
@@ -232,7 +231,7 @@ public class DbTransaction {
             return TransactionPool.instance().commit();
         } catch (Throwable t) {
             try {
-            	Log.getLog(DbTransaction.class).e(t);
+                Log.getLog(DbTransaction.class).e(t);
             } catch (Throwable t2) {
                 t.printStackTrace();
                 t2.printStackTrace();
@@ -252,7 +251,7 @@ public class DbTransaction {
             return TransactionPool.instance().rollback();
         } catch (Throwable t) {
             try {
-            	Log.getLog(DbTransaction.class).e(t);
+                Log.getLog(DbTransaction.class).e(t);
             } catch (Throwable t2) {
                 t.printStackTrace();
                 t2.printStackTrace();

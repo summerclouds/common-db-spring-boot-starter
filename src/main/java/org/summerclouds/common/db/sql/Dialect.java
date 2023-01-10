@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -118,11 +118,11 @@ public abstract class Dialect extends MLog implements ICompiler, AQueryCreator {
      */
     public void createStructure(
             INode data, DbConnection db, MetadataBundle caoMeta, boolean cleanup) throws Exception {
-    	try (IScope scope = MTracing.enter("sql create structure", "cleanup", cleanup )) {
-	        createTables(data, db, caoMeta, cleanup);
-	        createIndexes(data, db, caoMeta, cleanup);
-	        createData(data, db);
-    	}
+        try (IScope scope = MTracing.enter("sql create structure", "cleanup", cleanup)) {
+            createTables(data, db, caoMeta, cleanup);
+            createIndexes(data, db, caoMeta, cleanup);
+            createData(data, db);
+        }
     }
 
     /**

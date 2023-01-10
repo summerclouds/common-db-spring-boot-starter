@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,35 +39,65 @@ public class FeatureAccessManager extends Feature {
     /** {@inheritDoc} */
     @Override
     public void postFillObject(Object obj, DbConnection con) throws Exception {
-        if (accessManager != null && !accessManager.hasPermission(manager, table, con, obj, DbPermissionManager.ACCESS.READ))
-        	throw new AccessDeniedException("read/fill denied",MSecurity.getCurrent(), table.getName(), obj.getClass().getCanonicalName());
+        if (accessManager != null
+                && !accessManager.hasPermission(
+                        manager, table, con, obj, DbPermissionManager.ACCESS.READ))
+            throw new AccessDeniedException(
+                    "read/fill denied",
+                    MSecurity.getCurrent(),
+                    table.getName(),
+                    obj.getClass().getCanonicalName());
     }
 
     /** {@inheritDoc} */
     @Override
     public void preCreateObject(DbConnection con, Object object) throws Exception {
-        if (accessManager != null && !accessManager.hasPermission(manager, table, con, object, DbPermissionManager.ACCESS.CREATE))
-        	throw new AccessDeniedException("create denied",MSecurity.getCurrent(), table.getName(), object.getClass().getCanonicalName());
+        if (accessManager != null
+                && !accessManager.hasPermission(
+                        manager, table, con, object, DbPermissionManager.ACCESS.CREATE))
+            throw new AccessDeniedException(
+                    "create denied",
+                    MSecurity.getCurrent(),
+                    table.getName(),
+                    object.getClass().getCanonicalName());
     }
 
     /** {@inheritDoc} */
     @Override
     public void preSaveObject(DbConnection con, Object object) throws Exception {
-        if (accessManager != null && !accessManager.hasPermission(manager, table, con, object, DbPermissionManager.ACCESS.UPDATE))
-        	throw new AccessDeniedException("update/save denied",MSecurity.getCurrent(), table.getName(), object.getClass().getCanonicalName());
+        if (accessManager != null
+                && !accessManager.hasPermission(
+                        manager, table, con, object, DbPermissionManager.ACCESS.UPDATE))
+            throw new AccessDeniedException(
+                    "update/save denied",
+                    MSecurity.getCurrent(),
+                    table.getName(),
+                    object.getClass().getCanonicalName());
     }
 
     /** {@inheritDoc} */
     @Override
     public void deleteObject(DbConnection con, Object object) throws Exception {
-        if (accessManager != null && !accessManager.hasPermission(manager, table, con, object, DbPermissionManager.ACCESS.DELETE))
-        	throw new AccessDeniedException("delete denied",MSecurity.getCurrent(), table.getName(), object.getClass().getCanonicalName());
+        if (accessManager != null
+                && !accessManager.hasPermission(
+                        manager, table, con, object, DbPermissionManager.ACCESS.DELETE))
+            throw new AccessDeniedException(
+                    "delete denied",
+                    MSecurity.getCurrent(),
+                    table.getName(),
+                    object.getClass().getCanonicalName());
     }
 
     /** {@inheritDoc} */
     @Override
     public void postGetObject(DbConnection con, Object obj) throws Exception {
-        if (accessManager != null && !accessManager.hasPermission(manager, table, con, obj, DbPermissionManager.ACCESS.READ))
-            	throw new AccessDeniedException("read denied",MSecurity.getCurrent(), table.getName(), obj.getClass().getCanonicalName());
+        if (accessManager != null
+                && !accessManager.hasPermission(
+                        manager, table, con, obj, DbPermissionManager.ACCESS.READ))
+            throw new AccessDeniedException(
+                    "read denied",
+                    MSecurity.getCurrent(),
+                    table.getName(),
+                    obj.getClass().getCanonicalName());
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,33 +30,40 @@ import org.summerclouds.common.db.transaction.MemoryLockStrategy;
 
 public abstract class SecurityDbSchema extends DbSchema implements DbPermissionManager {
 
-	private INode config;
-	private boolean trace;
+    private INode config;
+    private boolean trace;
 
     public SecurityDbSchema(INode config) {
-    	setConfig(config);
-    	if (trace) log().i("start");
+        setConfig(config);
+        if (trace) log().i("start");
         lockStrategy = new MemoryLockStrategy();
-        ((MemoryLockStrategy) lockStrategy).setMaxLockAge( getConfig().getLong("maxLockAge", MPeriod.MINUTE_IN_MILLISECONDS * 5) ) ;
+        ((MemoryLockStrategy) lockStrategy)
+                .setMaxLockAge(
+                        getConfig().getLong("maxLockAge", MPeriod.MINUTE_IN_MILLISECONDS * 5));
     }
 
     @Override
     public void authorizeSaveForceAllowed(DbConnection con, Table table, Object object, boolean raw)
             throws AccessDeniedException {
         if (!MSecurity.hasPermission(Table.class, "saveforce", table.getRegistryName()))
-            throw new AccessDeniedException("save forced not allowed", MSecurity.getCurrent(), table.getName());
+            throw new AccessDeniedException(
+                    "save forced not allowed", MSecurity.getCurrent(), table.getName());
     }
 
     @Override
     public void authorizeUpdateAttributes(
             DbConnection con, Table table, Object object, boolean raw, String... attributeNames)
             throws AccessDeniedException {
-        if (MSecurity.hasPermission(Table.class, "updateattributes", table.getRegistryName())) return;
+        if (MSecurity.hasPermission(Table.class, "updateattributes", table.getRegistryName()))
+            return;
         for (String attr : attributeNames)
             if (!MSecurity.hasPermission(
                     Table.class, "updateattributes", table.getRegistryName() + "_" + attr))
-                throw new AccessDeniedException( "update attributes not allowed",
-                		MSecurity.getCurrent(), table.getName(), attr);
+                throw new AccessDeniedException(
+                        "update attributes not allowed",
+                        MSecurity.getCurrent(),
+                        table.getName(),
+                        attr);
     }
 
     @Override
@@ -75,8 +82,11 @@ public abstract class SecurityDbSchema extends DbSchema implements DbPermissionM
 
         if (!MSecurity.hasPermission(Table.class, "readattributes", registryName + "_" + attribute)
                 && !MSecurity.hasPermission(Table.class, "readattributes", registryName))
-            throw new AccessDeniedException( "read single attribute not allowerd",
-            		MSecurity.getCurrent(), registryName, attribute);
+            throw new AccessDeniedException(
+                    "read single attribute not allowerd",
+                    MSecurity.getCurrent(),
+                    registryName,
+                    attribute);
     }
 
     @Override
@@ -99,25 +109,25 @@ public abstract class SecurityDbSchema extends DbSchema implements DbPermissionM
         super.internalDeleteObject(con, name, object, attributes);
         if (trace) log().i("delete", name, attributes, object);
     }
-    
+
     @Override
     public synchronized DbPermissionManager getAccessManager(Table c) {
         return this;
     }
-    
-    protected INode getConfig() {
-    	return config;
-    }
-    
-    protected void setConfig(INode config) {
-    	if (config == null) config = new MNode();
-    	trace = config.getBoolean("trace", false);
-    	this.config = config;
-    }
-    
-	@Override
-	public boolean hasPermission(DbManager manager, Table c, DbConnection con, Object object, ACCESS right) {
-		return MSecurity.hasPermission(DbSchema.class, right.name(), c.getName() );
-	}
 
+    protected INode getConfig() {
+        return config;
+    }
+
+    protected void setConfig(INode config) {
+        if (config == null) config = new MNode();
+        trace = config.getBoolean("trace", false);
+        this.config = config;
+    }
+
+    @Override
+    public boolean hasPermission(
+            DbManager manager, Table c, DbConnection con, Object object, ACCESS right) {
+        return MSecurity.hasPermission(DbSchema.class, right.name(), c.getName());
+    }
 }

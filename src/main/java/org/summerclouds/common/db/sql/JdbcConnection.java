@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ public class JdbcConnection extends InternalDbConnection {
     private DbProvider provider;
     private boolean closed;
 
-	private int id = System.identityHashCode(this);
+    private int id = System.identityHashCode(this);
 
     /** {@inheritDoc} */
     @Override
@@ -223,8 +223,8 @@ public class JdbcConnection extends InternalDbConnection {
         return createStatement(sql, provider.getDialect().detectLanguage(sql));
     }
 
-	@Override
-	public int getInstanceId() {
-		return id ;
-	}
+    @Override
+    public int getInstanceId() {
+        return id;
+    }
 }

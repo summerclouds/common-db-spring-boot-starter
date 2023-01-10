@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -176,11 +176,7 @@ public class AdbUtil {
 
     public static PojoModel createDefaultPojoModel(Class<?> clazz) {
         return new PojoParser()
-                .parse(
-                        clazz,
-                        "_",
-                        false,
-                        DbPersistent.class, DbPrimaryKey.class, DbRelation.class)
+                .parse(clazz, "_", false, DbPersistent.class, DbPrimaryKey.class, DbRelation.class)
                 .filter(true, false, true, false, true)
                 .getModel();
     }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -274,7 +274,8 @@ public abstract class Table extends MLog {
         schema.internalSaveObject(con, name, object, attributes);
 
         int c = sqlUpdate.getStatement(con).executeUpdate(attributes);
-        if (c != 1) throw new MException(RC.ERROR, "update {2} failed, updated objects {1}", c, object);
+        if (c != 1)
+            throw new MException(RC.ERROR, "update {2} failed, updated objects {1}", c, object);
 
         for (Feature f : features) f.postSaveObject(con, object);
 
@@ -309,7 +310,8 @@ public abstract class Table extends MLog {
         schema.internalSaveObject(con, name, object, attributes);
 
         int c = sqlUpdateForce.getStatement(con).executeUpdate(attributes);
-        if (c != 1) throw new MException(RC.ERROR, "update {2} failed, updated objects {1}", c, object);
+        if (c != 1)
+            throw new MException(RC.ERROR, "update {2} failed, updated objects {1}", c, object);
 
         if (!raw) for (Feature f : features) f.postSaveObject(con, object);
 
@@ -379,7 +381,9 @@ public abstract class Table extends MLog {
         schema.internalSaveObject(con, name, object, attributes);
 
         int c = query.getStatement(con).executeUpdate(attributes);
-        if (c != 1) throw new MException(RC.STATUS.ERROR, "update {2} failed, updated objects {1}", c, object);
+        if (c != 1)
+            throw new MException(
+                    RC.STATUS.ERROR, "update {2} failed, updated objects {1}", c, object);
 
         if (!raw) for (Feature f : features) f.postSaveObject(con, object);
 

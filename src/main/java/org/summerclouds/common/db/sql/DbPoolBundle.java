@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,8 @@ public class DbPoolBundle extends MLog {
      */
     public DbPoolBundle(INode config, Activator activator) {
 
-        if (config == null) config = MSpring.getValueNode(MSystem.getOwnerName(DbPoolBundle.class), null);
+        if (config == null)
+            config = MSpring.getValueNode(MSystem.getOwnerName(DbPoolBundle.class), null);
         if (activator == null) activator = MSpring.getDefaultActivator();
 
         this.config = config;

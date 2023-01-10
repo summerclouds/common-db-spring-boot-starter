@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,8 @@ public class DbCollectionImpl<O> extends MLog implements DbCollection<O> {
         if (registryName == null) {
             Class<?> clazz = manager.getSchema().findClassForObject(object, manager);
             if (clazz == null)
-                throw new MException(RC.NOT_SUPPORTED,
+                throw new MException(
+                        RC.NOT_SUPPORTED,
                         "class definition not found for object",
                         object.getClass().getCanonicalName(),
                         registryName);

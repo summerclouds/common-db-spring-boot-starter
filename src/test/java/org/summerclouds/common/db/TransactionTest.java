@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,8 @@ public class TransactionTest {
 
     @BeforeAll
     public static void begin() throws Exception {
-        System.setProperty("app.org_summerclouds_common_db_TransactionLock.traceTransactionCallers", "true");
+        System.setProperty(
+                "app.org_summerclouds_common_db_TransactionLock.traceTransactionCallers", "true");
 
         manager = createManager();
         obj1 = manager.inject(new TransactionDummy());

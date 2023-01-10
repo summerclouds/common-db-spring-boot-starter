@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -486,7 +486,7 @@ public abstract class DbManager extends MLog implements DbObjectHandler, XdbServ
     public void create(Object object) throws MException {
         createObject(object);
     }
-    
+
     public Object[] getPrimaryKeyValues(Object object) throws Exception {
 
         String registryName = getRegistryName(object);
@@ -535,7 +535,9 @@ public abstract class DbManager extends MLog implements DbObjectHandler, XdbServ
         @Override
         public <F> F prepareManualValue(String name, Object value) {
             Field field = table.getField(name);
-            if (field == null) throw new MRuntimeException(RC.ERROR, "field {1} not found in table {2}", name, table);
+            if (field == null)
+                throw new MRuntimeException(
+                        RC.ERROR, "field {1} not found in table {2}", name, table);
             return (F) AdbUtil.createAttribute(field.getType(), value);
         }
 

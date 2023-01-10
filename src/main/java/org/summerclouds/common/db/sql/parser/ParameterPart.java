@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,9 +83,10 @@ public class ParameterPart extends StringParsingPart {
             return;
         }
         if (value instanceof InputStream) {
-        	if (!(attributes instanceof MapValuesProvider))
-        		throw new ConflictRuntimeException("attributes must be a map provider to provide blob streams");
-        	Map<String, Object> map = ((MapValuesProvider)attributes).getMap();
+            if (!(attributes instanceof MapValuesProvider))
+                throw new ConflictRuntimeException(
+                        "attributes must be a map provider to provide blob streams");
+            Map<String, Object> map = ((MapValuesProvider) attributes).getMap();
             out.append("?");
             DbStatement.addBinary(map, value);
             return;

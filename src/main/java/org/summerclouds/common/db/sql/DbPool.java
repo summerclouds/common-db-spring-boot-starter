@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,8 +43,7 @@ public abstract class DbPool extends MLog implements DbTransactionable {
     // Trace parameters
     private Map<String, ConnectionTrace> stackTraces = new HashMap<>();
     private long lastStackTracePrint = 0;
-    private CfgBoolean traceCaller =
-            new CfgBoolean(DbConnection.class, "traceCallers", false);
+    private CfgBoolean traceCaller = new CfgBoolean(DbConnection.class, "traceCallers", false);
     protected CfgBoolean tracePoolSize = new CfgBoolean(DbConnection.class, "tracePoolSize", false);
     private CfgTimeInterval traceWait =
             new CfgTimeInterval(DbConnection.class, "traceCallersWait", "10m");
@@ -55,7 +54,7 @@ public abstract class DbPool extends MLog implements DbTransactionable {
     private DbProvider provider;
     private String name;
     private INode config;
-	private long lastHouseKeeping = System.currentTimeMillis();
+    private long lastHouseKeeping = System.currentTimeMillis();
 
     /**
      * Create a new pool from central configuration. It's used the MApi configuration with the key
@@ -89,7 +88,6 @@ public abstract class DbPool extends MLog implements DbTransactionable {
         provider.doInitialize(this.config, activator);
 
         this.provider = provider;
-
     }
 
     /**
@@ -100,18 +98,16 @@ public abstract class DbPool extends MLog implements DbTransactionable {
     public DbPool(DbProvider provider) {
         doCreateConfig();
         setProvider(provider);
-
     }
 
     protected synchronized void doHousekeeping() {
-    	if (! MPeriod.isTimeOut(lastHouseKeeping, 300000)) return;
-    	lastHouseKeeping  = System.currentTimeMillis();
-    	
+        if (!MPeriod.isTimeOut(lastHouseKeeping, 300000)) return;
+        lastHouseKeeping = System.currentTimeMillis();
+
         if (!isClosed() && autoCleanup.value()) {
             log().t(DbPool.this.getName(), "autoCleanup connections");
             cleanup(autoCleanupUnused.value());
         }
-
     }
 
     protected INode getConfig() {
@@ -196,7 +192,7 @@ public abstract class DbPool extends MLog implements DbTransactionable {
     }
 
     public DbPrepared getStatement(String name) throws MException {
-    	doHousekeeping();
+        doHousekeeping();
         String[] query = provider.getQuery(name);
         return new DbPrepared(this, query[1], query[0]);
     }
@@ -209,7 +205,7 @@ public abstract class DbPool extends MLog implements DbTransactionable {
      * @throws MException
      */
     public DbPrepared createStatement(String sql) throws MException {
-    	doHousekeeping();
+        doHousekeeping();
         return createStatement(sql, null);
     }
 
@@ -222,12 +218,12 @@ public abstract class DbPool extends MLog implements DbTransactionable {
      * @throws MException
      */
     public DbPrepared createStatement(String sql, String language) throws MException {
-    	doHousekeeping();
+        doHousekeeping();
         return new DbPrepared(this, sql, language);
     }
 
     public String getPoolId() {
-    	doHousekeeping();
+        doHousekeeping();
         return name;
     }
 

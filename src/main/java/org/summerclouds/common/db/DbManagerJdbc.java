@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -417,15 +417,15 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
 
         try (IScope scope =
                 MTracing.enter(
-                                "executeQuery " + query,
-                                "class",
-                                clazz,
-                                "registryName",
-                                registryName,
-                                "query",
-                                query,
-                                "attributes",
-                                attributes)) {
+                        "executeQuery " + query,
+                        "class",
+                        clazz,
+                        "registryName",
+                        registryName,
+                        "query",
+                        query,
+                        "attributes",
+                        attributes)) {
             log().t("query", clazz, registryName, query, attributes);
             Map<String, Object> map = null;
 
@@ -466,14 +466,14 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
             throws MException {
         reloadLock.waitWithException(MAX_LOCK);
         try (IScope scope =
-        		MTracing.enter(
-                                "executeCountQuery " + query,
-                                "attributeName",
-                                attributeName,
-                                "query",
-                                query,
-                                "attributes",
-                                attributes)) {
+                MTracing.enter(
+                        "executeCountQuery " + query,
+                        "attributeName",
+                        attributeName,
+                        "query",
+                        query,
+                        "attributes",
+                        attributes)) {
             log().t("count", attributeName, query, attributes);
             Map<String, Object> map = null;
 
@@ -517,14 +517,14 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
             throws MException {
         reloadLock.waitWithException(MAX_LOCK);
         try (IScope scope =
-        		MTracing.enter(
-                                "executeAttributeQuery" + query,
-                                "alias",
-                                alias,
-                                "query",
-                                query,
-                                "attributes",
-                                attributes)) {
+                MTracing.enter(
+                        "executeAttributeQuery" + query,
+                        "alias",
+                        alias,
+                        "query",
+                        query,
+                        "attributes",
+                        attributes)) {
             log().t("query", alias, query, attributes);
             Map<String, Object> map = null;
 
@@ -622,7 +622,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
 
         log().t("get", registryName, keys);
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         try {
             Object out = c.getObject(con, keys);
@@ -695,7 +696,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         }
 
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         try {
             boolean ret = c.existsObject(con, keys);
@@ -733,7 +735,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         if (registryName == null) {
             Class<?> clazz = getSchema().findClassForObject(object, this);
             if (clazz == null)
-                throw new MException(RC.STATUS.ERROR, 
+                throw new MException(
+                        RC.STATUS.ERROR,
                         "class definition not found for object",
                         object.getClass().getCanonicalName(),
                         registryName);
@@ -741,7 +744,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         }
 
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         try {
             if (object == null) {
@@ -790,7 +794,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         if (registryName == null) {
             Class<?> clazz = schema.findClassForObject(object, this);
             if (clazz == null)
-                throw new MException(RC.STATUS.ERROR, 
+                throw new MException(
+                        RC.STATUS.ERROR,
                         "class definition not found for object",
                         object.getClass().getCanonicalName(),
                         registryName);
@@ -799,7 +804,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
 
         log().t("reload", registryName, object);
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         LinkedList<Object> keys = new LinkedList<Object>();
         try {
@@ -868,7 +874,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         if (registryName == null) {
             Class<?> clazz = schema.findClassForObject(object, this);
             if (clazz == null)
-                throw new MException(RC.ERROR, 
+                throw new MException(
+                        RC.ERROR,
                         "class definition not found for object",
                         object.getClass().getCanonicalName(),
                         registryName);
@@ -877,7 +884,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
 
         log().t("changed", registryName, object);
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         boolean ret = false;
         LinkedList<Object> keys = new LinkedList<Object>();
@@ -940,7 +948,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         if (registryName == null) {
             Class<?> clazz = schema.findClassForObject(object, this);
             if (clazz == null)
-                throw new MException(RC.ERROR, 
+                throw new MException(
+                        RC.ERROR,
                         "class definition not found for object",
                         object.getClass().getCanonicalName(),
                         registryName);
@@ -948,7 +957,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         }
 
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         try {
             c.fillObject(con, object, keys);
@@ -1009,7 +1019,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         if (registryName == null) {
             Class<?> clazz = schema.findClassForObject(object, this);
             if (clazz == null)
-                throw new MException(RC.ERROR, 
+                throw new MException(
+                        RC.ERROR,
                         "class definition not found for object",
                         object.getClass().getCanonicalName(),
                         registryName);
@@ -1017,7 +1028,8 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         }
         log().t("create", registryName, object);
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         try {
             // prepare object
@@ -1088,14 +1100,16 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         if (registryName == null) {
             Class<?> clazz = schema.findClassForObject(object, this);
             if (clazz == null)
-                throw new MException(RC.ERROR, 
+                throw new MException(
+                        RC.ERROR,
                         "class definition not found for object",
                         object.getClass().getCanonicalName());
             registryName = getRegistryName(clazz);
         }
         log().t("save", registryName, object);
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         try {
             // prepare object
@@ -1164,14 +1178,16 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         if (registryName == null) {
             Class<?> clazz = schema.findClassForObject(object, this);
             if (clazz == null)
-                throw new MException(RC.ERROR, 
+                throw new MException(
+                        RC.ERROR,
                         "class definition not found for object",
                         object.getClass().getCanonicalName());
             registryName = getRegistryName(clazz);
         }
         log().t("save force", registryName, object);
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         try {
             // prepare object
@@ -1240,14 +1256,16 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         if (registryName == null) {
             Class<?> clazz = schema.findClassForObject(object, this);
             if (clazz == null)
-                throw new MException(RC.ERROR, 
+                throw new MException(
+                        RC.ERROR,
                         "class definition not found for object",
                         object.getClass().getCanonicalName());
             registryName = getRegistryName(clazz);
         }
         log().t("save force", registryName, object);
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         try {
             // prepare object
@@ -1313,14 +1331,16 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         if (registryName == null) {
             Class<?> clazz = schema.findClassForObject(object, this);
             if (clazz == null)
-                throw new MException(RC.ERROR, 
+                throw new MException(
+                        RC.ERROR,
                         "class definition not found for object",
                         object.getClass().getCanonicalName());
             registryName = getRegistryName(clazz);
         }
         log().t("delete", registryName, object);
         Table c = cIndex.get(registryName);
-        if (c == null) throw new MException(RC.ERROR, "class definition not found in schema", registryName);
+        if (c == null)
+            throw new MException(RC.ERROR, "class definition not found in schema", registryName);
 
         try {
             // prepare object
@@ -1398,7 +1418,7 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         if (nameMapping != null) return;
 
         try (IScope scope =
-        		MTracing.enter("initDatabase", "cleanup", cleanup, "dataSource", dataSourceName)) {
+                MTracing.enter("initDatabase", "cleanup", cleanup, "dataSource", dataSourceName)) {
             schema.resetObjectTypes();
             pool.cleanup(true);
             Class<? extends Object>[] types = schema.getObjectTypes();
@@ -1570,9 +1590,9 @@ public class DbManagerJdbc extends DbManager implements DbObjectHandler {
         return ret;
     }
 
-	@Override
-	public void initialize(List<Class<?>> value) {
-		((MutableDbSchema)schema).getRegistry().clear();
-		((MutableDbSchema)schema).getRegistry().addAll(value);
-	}
+    @Override
+    public void initialize(List<Class<?>> value) {
+        ((MutableDbSchema) schema).getRegistry().clear();
+        ((MutableDbSchema) schema).getRegistry().addAll(value);
+    }
 }

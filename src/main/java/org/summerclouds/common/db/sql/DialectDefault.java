@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2020 Mike Hummel (mh@mhus.de)
+ * Copyright (C) 2022 Mike Hummel (mh@mhus.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -425,7 +425,7 @@ public class DialectDefault extends Dialect {
             // String type    = cindex.getExtracted("type");
             boolean btree = cindex.getBoolean("btree", false);
             String columnsOrg = cindex.getExtracted("fields");
-            log().d("process index {1}",iNameOrg);
+            log().d("process index {1}", iNameOrg);
             String columns = null;
             // order by name, trim, normalize
             if (columnsOrg != null) {
