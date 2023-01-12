@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.summerclouds.common.core.activator.Activator;
 import org.summerclouds.common.core.cfg.BeanRefMap;
 import org.summerclouds.common.core.error.MException;
