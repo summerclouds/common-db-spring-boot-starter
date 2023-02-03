@@ -132,7 +132,7 @@ public class JdbcConnection extends InternalDbConnection {
             if (!used) // for security reasons - remove old garbage in the session
             try {
                     if (connection != null) connection.rollback();
-                } catch (Throwable e) {
+                } catch (Exception e) {
                     log().d(e);
                     close();
                 }
@@ -158,7 +158,7 @@ public class JdbcConnection extends InternalDbConnection {
                     connection.close();
                     connection = null;
                 }
-            } catch (Throwable e) {
+            } catch (Exception e) {
                 log().d("close failed", this, e);
                 connection = null;
             }

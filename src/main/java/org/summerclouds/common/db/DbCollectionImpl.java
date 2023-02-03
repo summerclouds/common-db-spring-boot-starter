@@ -103,7 +103,7 @@ public class DbCollectionImpl<O> extends MLog implements DbCollection<O> {
                                                                 res,
                                                                 manager,
                                                                 true);
-                            } catch (Throwable t) {
+                            } catch (Exception t) {
                                 close();
                                 throw new MException(RC.STATUS.ERROR, con, t);
                             }
@@ -117,7 +117,7 @@ public class DbCollectionImpl<O> extends MLog implements DbCollection<O> {
 
                 } catch (AccessDeniedException ade) {
                     // next one
-                } catch (Throwable ade) {
+                } catch (Exception ade) {
                     close();
                     throw ade;
                 }
@@ -218,7 +218,7 @@ public class DbCollectionImpl<O> extends MLog implements DbCollection<O> {
                 }
                 out.addRow(row);
                 if (maxSize > 0 && out.getRowSize() >= maxSize) break;
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log().d("reading results failed", t, cnt);
             }
         }

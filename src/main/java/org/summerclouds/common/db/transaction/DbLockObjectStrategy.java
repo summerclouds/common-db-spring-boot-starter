@@ -80,7 +80,7 @@ public class DbLockObjectStrategy extends LockStrategy {
                     if (ignoreLockOwner) obj.delete();
                 }
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log().d(e);
         }
     }
@@ -115,7 +115,7 @@ public class DbLockObjectStrategy extends LockStrategy {
                 return false;
             }
             return obj != null;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log().d(e);
         }
         return false;
@@ -131,7 +131,7 @@ public class DbLockObjectStrategy extends LockStrategy {
                 return false;
             }
             return obj != null && obj.getOwner().equals(transaction.getName());
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log().d(e);
         }
         return false;

@@ -209,7 +209,7 @@ public class FieldPersistent extends Field {
             else
                 try {
                     set(obj, UUID.fromString(o));
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     log().d("uuid", name, o, t);
                     set(obj, (UUID) null);
                 }
@@ -251,7 +251,7 @@ public class FieldPersistent extends Field {
             else
                 try {
                     return different(obj, UUID.fromString(o));
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     log().d("uuid", name, o, t);
                     return different(obj, (UUID) null);
                 }

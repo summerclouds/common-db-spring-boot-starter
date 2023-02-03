@@ -77,7 +77,7 @@ public class XdbManager extends MLog implements SummerApplicationLifecycle {
                 services.put(entry.getKey(), service);
                 service.initialize(entry.getValue());
                 service.updateSchema(false); // false ?
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log().e("can't setup service {1}", entry.getKey(), t);
             }
         }

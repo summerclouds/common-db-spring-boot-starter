@@ -75,7 +75,7 @@ public class CmdCreate extends CmdOperation {
             try {
                 System.out.println("--- SET " + name + "  = " + v);
                 XdbUtil.setValue(type, object, name, v);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 System.out.println("*** Error: " + type + " " + name + " " + v);
                 t.printStackTrace();
             }

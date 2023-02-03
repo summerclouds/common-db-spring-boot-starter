@@ -582,14 +582,14 @@ public abstract class Table extends MLog {
      * @param res a {@link de.mhus.lib.sql.DbResult} object.
      * @throws java.lang.Throwable if any.
      */
-    public void fillObject(Object obj, DbConnection con, DbResult res) throws Throwable {
+    public void fillObject(Object obj, DbConnection con, DbResult res) throws Exception {
 
         for (Feature f : features) f.preFillObject(obj, con, res);
 
         for (Field f : fList) {
             try {
                 f.setToTarget(res, obj);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 manager.getSchema().onFillObjectException(Table.this, obj, res, f, t);
             }
         }
@@ -610,7 +610,7 @@ public abstract class Table extends MLog {
      * @return a {@link java.lang.Object} object.
      * @throws java.lang.Throwable if any.
      */
-    public Object fillObject(DbConnection con, Object obj, Object[] keys) throws Throwable {
+    public Object fillObject(DbConnection con, Object obj, Object[] keys) throws Exception {
 
         HashMap<String, Object> attributes = new HashMap<String, Object>();
         int nr = 0;
@@ -630,7 +630,7 @@ public abstract class Table extends MLog {
         for (Field f : fList) {
             try {
                 f.setToTarget(ret, obj);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 manager.getSchema().onFillObjectException(Table.this, obj, ret, f, t);
             }
         }

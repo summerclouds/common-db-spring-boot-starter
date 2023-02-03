@@ -121,7 +121,7 @@ public abstract class DbPool extends MLog implements DbTransactionable {
     protected void doCreateConfig() {
         try {
             config = MSpring.getValueNode(MSystem.getOwnerName(this), null);
-        } catch (Throwable t) {
+        } catch (Exception t) {
         }
         if (config == null) config = new MNode();
     }

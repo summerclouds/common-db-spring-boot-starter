@@ -118,7 +118,7 @@ public class JdbcStatement extends DbStatement {
             boolean result = preparedSth == null ? sth.execute(query) : preparedSth.execute();
             SqlAnalytics.trace(getConnection().getInstanceId(), original, query, start, null);
             return result;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             SqlAnalytics.trace(getConnection().getInstanceId(), original, query, start, e);
             log().e(query);
             throw e;
@@ -154,7 +154,7 @@ public class JdbcStatement extends DbStatement {
                     preparedSth == null ? sth.executeQuery(query) : preparedSth.executeQuery();
             SqlAnalytics.trace(getConnection().getInstanceId(), original, query, start, null);
             return new JdbcResult(this, result);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             SqlAnalytics.trace(getConnection().getInstanceId(), original, query, start, t);
             log().e(query);
             throw t;
@@ -180,7 +180,7 @@ public class JdbcStatement extends DbStatement {
                     preparedSth == null ? sth.executeUpdate(query) : preparedSth.executeUpdate();
             SqlAnalytics.trace(getConnection().getInstanceId(), original, query, start, null);
             return result;
-        } catch (Throwable t) {
+        } catch (Exception t) {
             SqlAnalytics.trace(getConnection().getInstanceId(), original, query, start, t);
             log().e(query);
             throw t;

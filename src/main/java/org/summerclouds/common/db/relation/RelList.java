@@ -232,7 +232,7 @@ public class RelList<T> implements List<T> {
                         manager.getTable(manager.getRegistryName(t)).getField(fName).set(t, null);
                         manager.saveObject(con, t);
                     }
-                } catch (Throwable te) {
+                } catch (Exception te) {
                     te.printStackTrace(); // XXX
                 }
             }
@@ -245,7 +245,7 @@ public class RelList<T> implements List<T> {
                             && !((DbComfortableObject) t).isAdbPersistent())
                         manager.createObject(con, t);
                     else manager.saveObject(con, t);
-                } catch (Throwable te) {
+                } catch (Exception te) {
                     te.printStackTrace(); // XXX
                 }
             }
@@ -261,7 +261,7 @@ public class RelList<T> implements List<T> {
                         //					else
                         //						manager.saveObject(con, t);
                     }
-                } catch (Throwable te) {
+                } catch (Exception te) {
                     te.printStackTrace(); // XXX
                 }
             }

@@ -131,7 +131,7 @@ public class TransactionTest {
                                     DbTransaction.lock(2000, obj1, obj2);
                                     fail.setValue("Concurrent Lock Possible");
                                     return;
-                                } catch (Throwable t) {
+                                } catch (Exception t) {
                                     System.out.println(t);
                                 } finally {
                                     DbTransaction.releaseLock();
@@ -170,7 +170,7 @@ public class TransactionTest {
                                     // concurrent
                                     try {
                                         DbTransaction.lock(2000, obj1, obj2);
-                                    } catch (Throwable t) {
+                                    } catch (Exception t) {
                                         fail.setValue("Lock was not cleaned");
                                         System.out.println(t);
                                     } finally {

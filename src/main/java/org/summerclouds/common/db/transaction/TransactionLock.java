@@ -112,14 +112,14 @@ public class TransactionLock extends LockBase {
             try {
                 strategy.lock(entry.getValue(), entry.getKey(), this, timeout);
                 done.add(entry);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log().d(t);
             }
             if (System.currentTimeMillis() - start > timeout) {
                 for (Map.Entry<String, Object> entry2 : done) {
                     try {
                         strategy.releaseLock(entry2.getValue(), entry2.getKey(), this);
-                    } catch (Throwable t) {
+                    } catch (Exception t) {
                         log().d(t);
                     }
                 }
@@ -168,7 +168,7 @@ public class TransactionLock extends LockBase {
             String key = createKey(o);
             try {
                 strategy.releaseLock(o, key, this);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log().d(t);
             }
         }
@@ -256,7 +256,7 @@ public class TransactionLock extends LockBase {
                 if (strategy.isLockedByOwner(entry.getValue(), entry.getKey(), this)) {
                     try {
                         strategy.releaseLock(entry.getValue(), entry.getKey(), this);
-                    } catch (Throwable t) {
+                    } catch (Exception t) {
                         log().d(entry.getKey(), t);
                     }
                 }

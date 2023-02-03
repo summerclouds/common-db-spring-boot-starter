@@ -545,7 +545,7 @@ public abstract class DbManager extends MLog implements DbObjectHandler, XdbServ
         public void set(Object object, String name, Object v) throws MException {
             try {
                 table.getField(name).set(object, v);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 throw new MException(RC.ERROR, "set name {1}", name, t);
             }
         }
@@ -555,7 +555,7 @@ public abstract class DbManager extends MLog implements DbObjectHandler, XdbServ
         public <F> F get(Object object, String name) throws MException {
             try {
                 return (F) table.getField(name).get(object);
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 throw new MException(RC.ERROR, "get name {1}", name, t);
             }
         }
@@ -645,7 +645,7 @@ public abstract class DbManager extends MLog implements DbObjectHandler, XdbServ
                 }
 
                 return out;
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 throw new MException(RC.ERROR, "with primary key {1}", pk, t);
             }
         }

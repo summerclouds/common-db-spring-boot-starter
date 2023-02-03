@@ -103,7 +103,7 @@ public class CmdUpdate extends CmdOperation {
                 System.out.println("--- SET " + name + "  = " + v);
                 try {
                     XdbUtil.setValue(type, object, name, v);
-                } catch (Throwable t) {
+                } catch (Exception t) {
                     System.out.println("*** Error: " + name);
                     t.printStackTrace();
                 }

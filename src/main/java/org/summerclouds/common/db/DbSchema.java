@@ -174,7 +174,7 @@ public abstract class DbSchema extends MLog implements PojoModelFactory {
             return;
         } catch (NoSuchMethodException nsme) {
             log().t("method not found", field, nsme);
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log().t("create id failed", field, t);
             return;
         }
@@ -421,8 +421,8 @@ public abstract class DbSchema extends MLog implements PojoModelFactory {
     public void internalDeleteObject(
             DbConnection con, String name, Object object, HashMap<String, Object> attributes) {}
 
-    public void onFillObjectException(Table table, Object obj, DbResult res, Field f, Throwable t)
-            throws Throwable {
+    public void onFillObjectException(Table table, Object obj, DbResult res, Field f, Exception t)
+            throws Exception {
         throw t;
     }
 

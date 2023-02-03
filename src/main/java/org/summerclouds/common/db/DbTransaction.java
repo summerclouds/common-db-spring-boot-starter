@@ -120,10 +120,10 @@ public class DbTransaction {
     public static void releaseLock() {
         try {
             TransactionPool.instance().releaseLock();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             try {
                 Log.getLog(DbTransaction.class).e(t);
-            } catch (Throwable t2) {
+            } catch (Exception t2) {
                 t.printStackTrace();
                 t2.printStackTrace();
             }
@@ -137,10 +137,10 @@ public class DbTransaction {
     public static void releaseEncapsulate() {
         try {
             TransactionPool.instance().releaseEncapsulate();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             try {
                 Log.getLog(DbTransaction.class).e(t);
-            } catch (Throwable t2) {
+            } catch (Exception t2) {
                 t.printStackTrace();
                 t2.printStackTrace();
             }
@@ -188,10 +188,10 @@ public class DbTransaction {
     public static boolean commitAndRelease() {
         try {
             return TransactionPool.instance().commitAndRelease();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             try {
                 Log.getLog(DbTransaction.class).e(t);
-            } catch (Throwable t2) {
+            } catch (Exception t2) {
                 t.printStackTrace();
                 t2.printStackTrace();
             }
@@ -209,10 +209,10 @@ public class DbTransaction {
     public static boolean rollbackAndRelease() throws MException {
         try {
             return TransactionPool.instance().rollbackAndRelease();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             try {
                 Log.getLog(DbTransaction.class).e(t);
-            } catch (Throwable t2) {
+            } catch (Exception t2) {
                 t.printStackTrace();
                 t2.printStackTrace();
             }
@@ -229,10 +229,10 @@ public class DbTransaction {
     public static boolean commitWithoutRelease() {
         try {
             return TransactionPool.instance().commit();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             try {
                 Log.getLog(DbTransaction.class).e(t);
-            } catch (Throwable t2) {
+            } catch (Exception t2) {
                 t.printStackTrace();
                 t2.printStackTrace();
             }
@@ -249,10 +249,10 @@ public class DbTransaction {
     public static boolean rollbackWithoutRelease() {
         try {
             return TransactionPool.instance().rollback();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             try {
                 Log.getLog(DbTransaction.class).e(t);
-            } catch (Throwable t2) {
+            } catch (Exception t2) {
                 t.printStackTrace();
                 t2.printStackTrace();
             }

@@ -76,7 +76,7 @@ public class FieldRelation extends MLog {
             }
             if (rel != null) rel.setManager(this, obj);
             return rel;
-        } catch (Throwable e) {
+        } catch (Exception e) {
             log().t(getName(), obj, e);
         }
         return null;

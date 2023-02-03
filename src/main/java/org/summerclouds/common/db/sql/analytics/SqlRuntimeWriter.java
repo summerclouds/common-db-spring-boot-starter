@@ -66,7 +66,7 @@ public class SqlRuntimeWriter extends SqlRuntimeAnalyzer {
                 ps.flush();
                 ps.close();
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log().e("write file {1} failed", file, t);
         }
     }

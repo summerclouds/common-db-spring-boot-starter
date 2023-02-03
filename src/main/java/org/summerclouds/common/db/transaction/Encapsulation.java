@@ -47,7 +47,7 @@ public class Encapsulation {
             for (TransactionConnection con : connections.values())
                 try {
                     con.commit();
-                } catch (Throwable e) {
+                } catch (Exception e) {
                     success = false;
                     Log.getLog(Encapsulation.class).w(e);
                 }
@@ -61,7 +61,7 @@ public class Encapsulation {
             for (TransactionConnection con : connections.values())
                 try {
                     con.rollback();
-                } catch (Throwable e) {
+                } catch (Exception e) {
                     success = false;
                     Log.getLog(Encapsulation.class).w(e);
                 }
@@ -74,7 +74,7 @@ public class Encapsulation {
             for (TransactionConnection con : connections.values())
                 try {
                     con.close();
-                } catch (Throwable e) {
+                } catch (Exception e) {
                     Log.getLog(Encapsulation.class).w(e);
                 }
             connections.clear();

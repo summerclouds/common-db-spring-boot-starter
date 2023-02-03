@@ -69,7 +69,7 @@ public class TransactionPool extends MLog {
             } else {
                 log().d("releaseLock nested", out, nested);
             }
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log().w(t);
         }
         //		}

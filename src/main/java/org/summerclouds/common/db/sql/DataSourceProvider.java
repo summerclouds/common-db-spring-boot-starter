@@ -83,7 +83,7 @@ public class DataSourceProvider extends DbProvider {
                 Connection con = dataSource.getConnection();
                 driverName = con.getMetaData().getDriverName();
                 con.close();
-            } catch (Throwable t) {
+            } catch (Exception t) {
                 log().d(t);
             }
             dialect = M.l(DialectFactory.class).findDialect(driverName);

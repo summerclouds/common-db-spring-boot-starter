@@ -159,7 +159,7 @@ public class DefaultDbPool extends DbPool {
                         pool.remove(con);
                         removed = true;
                     }
-                } catch (Throwable t) {
+                } catch (Exception t) {
                 } // for secure - do not impact the thread
             }
             if (removed && tracePoolSize.value()) log().d("Pool cleanup", pool.size());

@@ -27,7 +27,7 @@ public class SqlAnalytics {
             if (analyzer != null) analyzer.stop();
             analyzer = analyzer_;
             if (analyzer != null) analyzer.start();
-        } catch (Throwable t) {
+        } catch (Exception t) {
             log.e(t);
             analyzer = null;
         }
@@ -42,7 +42,7 @@ public class SqlAnalytics {
         try {
             long delta = System.currentTimeMillis() - start;
             if (analyzer != null) analyzer.doAnalyze(connectionId, original, query, delta, t);
-        } catch (Throwable t2) {
+        } catch (Exception t2) {
             log.e(t2);
         }
     }
